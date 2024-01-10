@@ -1,9 +1,10 @@
-package com.example.ironlog.screens
+package com.example.ironlog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
@@ -23,7 +24,9 @@ fun HomeScreen() {
             .background(Color.Gray)
     ) {
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.25f),
             text = "Home",
             fontSize = 50.sp,
             fontWeight = FontWeight.Bold,
@@ -31,7 +34,9 @@ fun HomeScreen() {
         )
 
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.25f),
             text = "Last Workout:",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
@@ -39,7 +44,9 @@ fun HomeScreen() {
         )
 
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.25f),
             text = "Lifetime Statistics:",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
@@ -47,7 +54,9 @@ fun HomeScreen() {
         )
 
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.25f),
             text = "Workout Streak:",
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,

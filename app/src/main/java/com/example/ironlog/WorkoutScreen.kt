@@ -1,4 +1,4 @@
-package com.example.ironlog.screens
+package com.example.ironlog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,16 +11,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SettingsScreen(){
+fun WorkoutScreen(){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Blue),
+            .background(Color.Red),
         contentAlignment = Alignment.Center,
 
 
         ){
-        Text(text = "Settings Screen",
+        Text(text = "Workout Screen",
             fontSize = 20.sp,
             color = Color.White)
     }

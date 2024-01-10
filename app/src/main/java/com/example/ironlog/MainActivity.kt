@@ -32,14 +32,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.ironlog.screens.HistoryScreen
-import com.example.ironlog.screens.HomeScreen
-import com.example.ironlog.screens.SettingsScreen
-import com.example.ironlog.screens.TemplatesScreen
-import com.example.ironlog.screens.WorkoutScreen
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,29 +47,29 @@ class MainActivity : ComponentActivity() {
                     BottomNavigationBar(
                         items = listOf(
                             BottomNavItem(
-                                route = "home",
-                                name = "Home",
-                                icon = Icons.Default.Home
-                            ),
-                            BottomNavItem(
-                                route = "history",
-                                name = "History",
-                                icon = Icons.Default.DateRange
-                            ),
-                            BottomNavItem(
-                                route = "settings",
-                                name = "Settings",
-                                icon = Icons.Default.Settings
-                            ),
-                            BottomNavItem(
                                 route = "workout",
                                 name = "Workout",
                                 icon = Icons.Default.Add
                             ),
                             BottomNavItem(
+                                route = "calendar",
+                                name = "Calendar",
+                                icon = Icons.Default.DateRange
+                            ),
+                            BottomNavItem(
+                                route = "home",
+                                name = "Home",
+                                icon = Icons.Default.Home
+                            ),
+                            BottomNavItem(
                                 route = "templates",
                                 name = "Templates",
                                 icon = Icons.Default.Edit
+                            ),
+                            BottomNavItem(
+                                route = "settings",
+                                name = "Settings",
+                                icon = Icons.Default.Settings
                             )
                         ),
                         navController = navController,
@@ -82,19 +79,19 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             ) {
-                Navigation(navController = navController)
+                Navigation(navController = navController, )
             }
         }
     }
 }
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController,) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen()
         }
         composable("history") {
-            HistoryScreen()
+            TopNavigationScreenCalendar(navController = navController, "history")
         }
         composable("settings") {
             SettingsScreen()
@@ -103,7 +100,13 @@ fun Navigation(navController: NavHostController) {
             WorkoutScreen()
         }
         composable("templates") {
-            TemplatesScreen()
+            TopNavigationScreenTemplates(navController = navController, "templates")
+        }
+        composable("database"){
+            TopNavigationScreenTemplates(navController = navController, "database")
+        }
+        composable("calendar"){
+            TopNavigationScreenCalendar(navController = navController, "calendar")
         }
     }
 }

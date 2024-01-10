@@ -1,4 +1,4 @@
-package com.example.ironlog.screens
+package com.example.ironlog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,17 +11,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TemplatesScreen(){
+fun DatabaseScreen(){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Magenta),
+            .background(Color.Yellow),
         contentAlignment = Alignment.Center,
 
 
         ){
-        Text(text = "Templates Screen",
+        Text(text = "Database Screen",
             fontSize = 20.sp,
-            color = Color.White)
+            color = Color.Black)
     }
 }

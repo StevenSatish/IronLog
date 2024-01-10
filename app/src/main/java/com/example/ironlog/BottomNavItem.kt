@@ -8,4 +8,9 @@ data class BottomNavItem(
     val icon: ImageVector,
 
 )
+data class TopNavItem(
+    val route: String,
+    val name: String,
+
+)
 
