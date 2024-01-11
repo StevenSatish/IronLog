@@ -15,7 +15,7 @@ fun DatabaseScreen(){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Yellow),
+            .background(Color.Magenta),
         contentAlignment = Alignment.Center,
 
 

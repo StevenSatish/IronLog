@@ -29,7 +29,7 @@ fun TemplatesScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Yellow),
+            .background(Color.Red),
         contentAlignment = Alignment.Center,
 
 

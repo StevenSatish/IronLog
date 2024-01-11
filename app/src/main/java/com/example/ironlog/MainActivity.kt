@@ -20,6 +20,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,9 +33,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-
-
-@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -42,6 +40,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            var isWorkoutSheetOpen by rememberSaveable { mutableStateOf(false) }
             Scaffold(
                 bottomBar = {
                     BottomNavigationBar(
@@ -74,12 +73,19 @@ class MainActivity : ComponentActivity() {
                         ),
                         navController = navController,
                         onItemClick = {
-                            navController.navigate(it.route)
+                            if (it.route == "workout"){
+                                isWorkoutSheetOpen = !isWorkoutSheetOpen
+                            } else {
+                                navController.navigate(it.route)
+                            }
                         }
                     )
                 }
             ) {
                 Navigation(navController = navController, )
+                if (isWorkoutSheetOpen) {
+                    WorkoutPopup(onDismiss = {isWorkoutSheetOpen = false })
+                }
             }
         }
     }
@@ -95,9 +101,6 @@ fun Navigation(navController: NavHostController,) {
         }
         composable("settings") {
             SettingsScreen()
-        }
-        composable("workout") {
-            WorkoutScreen()
         }
         composable("templates") {
             TopNavigationScreenTemplates(navController = navController, "templates")
