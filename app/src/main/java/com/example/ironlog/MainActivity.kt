@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -41,6 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             var isWorkoutSheetOpen by rememberSaveable { mutableStateOf(false) }
+            var currentRoute by rememberSaveable { mutableStateOf("home") } // Track the current route
             Scaffold(
                 bottomBar = {
                     BottomNavigationBar(
@@ -72,10 +72,12 @@ class MainActivity : ComponentActivity() {
                             )
                         ),
                         navController = navController,
+                        currentRoute = currentRoute,
                         onItemClick = {
                             if (it.route == "workout"){
-                                isWorkoutSheetOpen = !isWorkoutSheetOpen
+                                isWorkoutSheetOpen = true
                             } else {
+                                currentRoute = it.route  // Update current route
                                 navController.navigate(it.route)
                             }
                         }
@@ -118,6 +120,7 @@ fun Navigation(navController: NavHostController,) {
 fun BottomNavigationBar(
     items: List<BottomNavItem>,
     navController: NavController,
+    currentRoute: String,
     modifier: Modifier = Modifier,
     onItemClick: (BottomNavItem) -> Unit
 ) {
@@ -128,7 +131,7 @@ fun BottomNavigationBar(
         tonalElevation = 5.dp
     ) {
         items.forEach { item ->
-            val selected = item.route == backStackEntry.value?.destination?.route
+            val selected = item.route == currentRoute
             NavigationBarItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
