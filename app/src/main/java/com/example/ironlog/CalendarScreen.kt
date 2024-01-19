@@ -75,7 +75,6 @@ fun TopNavigationBarCalendar(
         }
     }
 }
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavigationScreenCalendar(navController: NavController, startDestination: String) {
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
@@ -32,8 +33,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-class MainActivity : ComponentActivity() {
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class MainActivity : ComponentActivity() {
+    private val viewModel: MainViewModel by viewModels()
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             var isWorkoutSheetOpen by rememberSaveable { mutableStateOf(false) }
             var currentRoute by rememberSaveable { mutableStateOf("home") } // Track the current route
+
             Scaffold(
                 bottomBar = {
                     BottomNavigationBar(
@@ -74,7 +79,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         currentRoute = currentRoute,
                         onItemClick = {
-                            if (it.route == "workout"){
+                            if (it.route == "workout") {
                                 isWorkoutSheetOpen = true
                             } else {
                                 currentRoute = it.route  // Update current route
@@ -84,16 +89,16 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             ) {
-                Navigation(navController = navController, )
+                Navigation(navController = navController, viewModel)
                 if (isWorkoutSheetOpen) {
-                    WorkoutPopup(onDismiss = {isWorkoutSheetOpen = false })
+                    WorkoutPopup(onDismiss = { isWorkoutSheetOpen = false })
                 }
             }
         }
     }
 }
 @Composable
-fun Navigation(navController: NavHostController,) {
+fun Navigation(navController: NavHostController, viewModel: MainViewModel) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen()
@@ -105,10 +110,10 @@ fun Navigation(navController: NavHostController,) {
             SettingsScreen()
         }
         composable("templates") {
-            TopNavigationScreenTemplates(navController = navController, "templates")
+            TopNavigationScreenTemplates(navController = navController, "templates", viewModel)
         }
         composable("database"){
-            TopNavigationScreenTemplates(navController = navController, "database")
+            TopNavigationScreenTemplates(navController = navController, "database", viewModel)
         }
         composable("calendar"){
             TopNavigationScreenCalendar(navController = navController, "calendar")
